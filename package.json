@@ -1,0 +1,27 @@
+{
+  "name": "taurin",
+  "version": "0.0.1",
+  "description": "A React-like server side templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakubMrozek/taurin.git"
+  },
+  "keywords": [
+    "react",
+    "template",
+    "view"
+  ],
+  "author": "Jakub Mrozek, jakub.mrozek@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JakubMrozek/taurin/issues"
+  },
+  "homepage": "https://github.com/JakubMrozek/taurin#readme",
+  "dependencies": {
+    "html-escape": "^2.0.0"
+  }
+}
