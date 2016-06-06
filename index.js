@@ -24,6 +24,10 @@ function isString(value) {
   return typeof value === 'string'
 }
 
+function isNumber(value) {
+  return typeof value === 'number'
+}
+
 function isUndefined(value) {
   return typeof value === 'undefined'
 }
@@ -39,13 +43,13 @@ function element(name, attrs = null, children = [], config = {}) {
 
 function renderAttrs(attrs) {
   return Object.keys(attrs || {}).map((key) => (
-    ` ${key}="${attrs[key]}"`
+    ` ${key}="${escape(attrs[key])}"`
   ))
 }
 
 function render(value) {
-  if (isString(value)) {
-    return value
+  if (isString(value) || isNumber(value)) {
+    return escape(value)
   }
   if (isUndefined(value)) {
     return ''
