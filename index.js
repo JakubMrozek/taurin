@@ -1,5 +1,20 @@
 const escape = require('escape-html')
 
+exports.el = element
+exports.render = render
+
+
+function isString(value) {
+  return typeof value === 'string'
+}
+
+function isNumber(value) {
+  return typeof value === 'number'
+}
+
+function isUndefined(value) {
+  return value === undefined
+}
 
 const SELF_CLOSING = [
   'area',
@@ -20,18 +35,6 @@ const SELF_CLOSING = [
   'wbr'
 ]
 
-function isString(value) {
-  return typeof value === 'string'
-}
-
-function isNumber(value) {
-  return typeof value === 'number'
-}
-
-function isUndefined(value) {
-  return typeof value === 'undefined'
-}
-
 function element(name, attrs = null, children = [], config = {}) {
   config.self = SELF_CLOSING.includes(name)
   if (isString(attrs) || Array.isArray(attrs)) {
@@ -43,7 +46,8 @@ function element(name, attrs = null, children = [], config = {}) {
 
 function renderAttrs(attrs) {
   return Object.keys(attrs || {}).map((key) => (
-    ` ${key}="${escape(attrs[key])}"`
+    ` ${key}='${attrs[key]}'`
+    //attrs[key] === null ? ` ${key}` : ` ${key}="${escape(attrs[key])}"`
   ))
 }
 
@@ -54,11 +58,11 @@ function render(value) {
   if (isUndefined(value)) {
     return ''
   }
-
   const {name, attrs, children, config} = value
   let html = `<${name}`
   html += renderAttrs(attrs).join('')
   html += config.self ? '/>' : '>'
+
   if (Array.isArray(children)) {
     for (let i = 0, len = children.length; i < len; ++i) {
       html += render(children[i])
@@ -71,8 +75,3 @@ function render(value) {
   }
   return html
 }
-
-
-exports.el = element
-exports.element = element
-exports.render = render
